@@ -2,6 +2,8 @@
 
 const int LEFT_FLIPPER_BUTTON_PIN = 8;
 const int LEFT_FLIPPER_SOLENOID_PIN = 2;
+const int RIGHT_FLIPPER_BUTTON_PIN = 32;
+const int RIGHT_FLIPPER_SOLENOID_PIN = 33;
 const int MOTOR_PIN = 3;
 const int MOTOR_PROX_SENSOR_PIN = 4;
 const int SCOREBOARD_SER_PIN = 7;
@@ -109,6 +111,8 @@ void printDebugStatements(unsigned long loopIterationTime);
 void setup() {
   pinMode(LEFT_FLIPPER_BUTTON_PIN, INPUT);
   pinMode(LEFT_FLIPPER_SOLENOID_PIN, OUTPUT);
+  pinMode(RIGHT_FLIPPER_BUTTON_PIN, INPUT);
+  pinMode(RIGHT_FLIPPER_SOLENOID_PIN, OUTPUT);
   pinMode(MOTOR_PIN, OUTPUT);
   pinMode(SCOREBOARD_RCLK_PIN, OUTPUT);
   pinMode(SCOREBOARD_SER_PIN, OUTPUT);
@@ -151,6 +155,7 @@ void loop() {
     case ROUND_2:
     case ROUND_3:
       driveLeftSolenoid();
+      driveRightSolenoid();
       driveMotor();
       driveBuzzer();
       updateScore();
@@ -244,7 +249,11 @@ void driveLeftSolenoid() {
 }
 
 void driveRightSolenoid() {
-
+  if (digitalRead(RIGHT_FLIPPER_BUTTON_PIN) == HIGH) {
+    digitalWrite(RIGHT_FLIPPER_SOLENOID_PIN, HIGH);
+  } else {
+    digitalWrite(RIGHT_FLIPPER_SOLENOID_PIN, LOW);
+  }
 }
 
 void updateScore() {
