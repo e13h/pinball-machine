@@ -11,6 +11,7 @@ const int SCOREBOARD_LEFT_DIGIT_PIN = 13;
 const int SCOREBOARD_RIGHT_DIGIT_PIN = 12;
 const int START_BUTTON_PIN = 52;
 const int RIGHT_PIEZO_BUMPER_PIN = A0;
+const int LEFT_PIEZO_BUMPER_PIN = A6;
 const int BUZZER_PIN = 9;
 const int DROPOUT_PROX_SENSOR_PIN = 50;
 const int SERVO_PIN = 10;
@@ -84,6 +85,7 @@ struct PinballMachine {
   GameplayState state = NOT_STARTED;
   ProximitySensorController motorProxSensor;
   PiezoBumperController rightBumper;
+  PiezoBumperController leftBumper;
   BuzzerController buzzer;
   ServoController servo;
 };
@@ -116,6 +118,7 @@ void setup() {
   pinMode(MOTOR_PROX_SENSOR_PIN, INPUT);
   pinMode(START_BUTTON_PIN, INPUT);
   pinMode(RIGHT_PIEZO_BUMPER_PIN, INPUT);
+  pinMode(LEFT_PIEZO_BUMPER_PIN, INPUT);
   pinMode(BUZZER_PIN, OUTPUT);
   pinMode(DROPOUT_PROX_SENSOR_PIN, INPUT);
   machine.servo.device.attach(SERVO_PIN);
@@ -257,6 +260,13 @@ void updateScore() {
     activateBuzzer();
     machine.rightBumper.timestamp_tripped = millis();
   }
+
+  if (analogRead(LEFT_PIEZO_BUMPER_PIN) > machine.leftBumper.SENSITIVITY
+      && millis() - machine.leftBumper.timestamp_tripped > machine.leftBumper.TIMEOUT) {
+    machine.score.current_round->points += machine.leftBumper.POINTS;
+    activateBuzzer();
+    machine.leftBumper.timestamp_tripped = millis();
+  }
   unsigned int time_score = (millis() - machine.score.current_round->timestamp_start) / 2000;
   machine.score.current_round->total_points = machine.score.current_round->points + time_score;
 
@@ -322,6 +332,8 @@ void printDebugStatements(unsigned long loopIterationTime) {
   Serial.print(digitalRead(START_BUTTON_PIN));
   Serial.print(" rpiezo:");
   Serial.print(analogRead(RIGHT_PIEZO_BUMPER_PIN));
+  Serial.print(" lpiezo:");
+  Serial.print(analogRead(LEFT_PIEZO_BUMPER_PIN));
   Serial.print(" drop:");
   Serial.print(digitalRead(DROPOUT_PROX_SENSOR_PIN));
   Serial.print(" r1_score:");
