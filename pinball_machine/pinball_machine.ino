@@ -1,22 +1,22 @@
 #include <Servo.h>
 
-const int LEFT_FLIPPER_BUTTON_PIN = 8;
-const int LEFT_FLIPPER_SOLENOID_PIN = 2;
+const int LEFT_FLIPPER_BUTTON_PIN = 23;
+const int LEFT_FLIPPER_SOLENOID_PIN = 4;
 const int RIGHT_FLIPPER_BUTTON_PIN = 32;
 const int RIGHT_FLIPPER_SOLENOID_PIN = 33;
 const int MOTOR_PIN = 3;
-const int MOTOR_PROX_SENSOR_PIN = 4;
-const int SCOREBOARD_SER_PIN = 7;
-const int SCOREBOARD_RCLK_PIN = 6;
-const int SCOREBOARD_SRCLK_PIN = 5;
-const int SCOREBOARD_LEFT_DIGIT_PIN = 13;
+const int MOTOR_PROX_SENSOR_PIN = 52;
+const int SCOREBOARD_SER_PIN = 10;
+const int SCOREBOARD_RCLK_PIN = 9;
+const int SCOREBOARD_SRCLK_PIN = 8;
+const int SCOREBOARD_LEFT_DIGIT_PIN = 11;
 const int SCOREBOARD_RIGHT_DIGIT_PIN = 12;
-const int START_BUTTON_PIN = 52;
+const int START_BUTTON_PIN = 22;
 const int RIGHT_PIEZO_BUMPER_PIN = A0;
 const int LEFT_PIEZO_BUMPER_PIN = A6;
-const int BUZZER_PIN = 9;
-const int DROPOUT_PROX_SENSOR_PIN = 50;
-const int SERVO_PIN = 10;
+const int BUZZER_PIN = 13;
+const int DROPOUT_PROX_SENSOR_PIN = 53;
+const int SERVO_PIN = 5;
 
 enum GameplayState {
   NOT_STARTED,
