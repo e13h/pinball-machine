@@ -299,8 +299,7 @@ void driveServo() {
 }
 
 void checkForDropout() {
-  // if (digitalRead(DROPOUT_PROX_SENSOR_PIN) == LOW) {
-  if (digitalRead(START_BUTTON_PIN) == HIGH && millis() - machine.score.current_round->timestamp_start > 1000) {  // TODO: Remove this once IR sensor is fixed
+  if (digitalRead(DROPOUT_PROX_SENSOR_PIN) == LOW) {
     if (machine.state == ROUND_1) {
       machine.state = ROUND_1_ENDED;
     } else if (machine.state == ROUND_2) {
@@ -308,7 +307,6 @@ void checkForDropout() {
     } else if (machine.state == ROUND_3) {
       machine.state = GAME_OVER;
     }
-    delay(1000);  // TODO: Remove this
   }
 }
 
